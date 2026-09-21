@@ -1,5 +1,5 @@
 #include <Servo.h>
-//DEFINISI PIN INPUTAN (BUUTON 1, 2), PIN SERVO (POSISI AWAL SERVO, STATE DAN JEDA)
+//DEFINISI PIN INPUTAN (BUUTON 1, 2), PIN SERVO (POSISI AWAL SERVO, STEP DAN JEDA)
 
 Servo myServo;
 int btnKir = 2;
@@ -16,7 +16,7 @@ void setup()
   pinMode(btnKan, INPUT_PULLUP);
   pinMode(btnKir, INPUT_PULLUP);
   
-  myServo.write(awal); //kaya pinmode tapi buat servo set servo ke posisi awal
+  myServo.write(awal); //kaya pinmode tapi buat servo (set servo ke posisi awal)
 }
 
 void loop()
