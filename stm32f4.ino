@@ -1,5 +1,5 @@
 void setup() {
-  Serial.begin(9600); // komunikasi Serial dengan kecepatan transfer data 9600 bps
+  Serial.begin(115200); // komunikasi Serial dengan kecepatan transfer data 9600 bps
   pinMode(PC13, OUTPUT); // pin led (PC13)
 }
 
