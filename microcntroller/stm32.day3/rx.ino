@@ -23,8 +23,6 @@ void loop()
 {
   if(myTransfer.available())
   {
-    // use this variable to keep track of how many
-    // bytes we've processed from the receive buffer
     uint16_t recSize = 0;
 
     recSize = myTransfer.rxObj(testStruct, recSize);
