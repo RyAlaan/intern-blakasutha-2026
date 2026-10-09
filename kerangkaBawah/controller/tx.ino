@@ -17,10 +17,10 @@ byte type = 0;
 int tryNum = 1;
 
 uint8_t broadcastAddress[] = {0x68, 0xEE, 0x8F, 0x4F, 0x04, 0x1C};
-struct struct_message {
+struct __attribute__((packed)) struct_message {
   int LX, LY, RX, RY;
   bool UP, DOWN, RIGHT, LEFT;
-} controllerData;
+} controllerData, lastControllerData;
 
 esp_now_peer_info_t peerInfo; 
 
@@ -63,7 +63,6 @@ void loop() {
 
   ps2x.read_gamepad(false, 0); 
 
-  if(ps2x.Button(PSB_L1) || ps2x.Button(PSB_R1)) {
   controllerData.LX = ps2x.Analog(PSS_LX);
   controllerData.LY = ps2x.Analog(PSS_LY);
   controllerData.RX = ps2x.Analog(PSS_RX);
@@ -79,4 +78,4 @@ void loop() {
   }
 
   delay(50);
-}}
+}
