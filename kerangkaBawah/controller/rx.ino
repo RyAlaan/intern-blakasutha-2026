@@ -2,44 +2,46 @@
 #include <WiFi.h>
 
 struct struct_message {
-  int Lx, Ly, Rx, Ry;
-  bool Up, Down, Right, Left; 
+  int LX, LY, RX, RY;
+  bool UP, DOWN, RIGHT, LEFT; 
 } controllerData;
 
 void OnDataRecv(const esp_now_recv_info_t * info, const uint8_t *incomingData, int len) {
   memcpy(&controllerData, incomingData, sizeof(controllerData));
   Serial.print("Bytes received: ");
   Serial.println(len);
-  Serial.print("Lx: ");
-  Serial.println(controllerData.Lx);
-  Serial.print("Ly: ");
-  Serial.println(controllerData.Ly);
-  Serial.print("Rx: ");
-  Serial.println(controllerData.Rx);
-  Serial.print("Ry: ");
-  Serial.println(controllerData.Ry);
-  Serial.print("Up: ");
-  Serial.println(controllerData.Up);
-  Serial.print("Right: ");
-  Serial.println(controllerData.Down);
-  Serial.print("Left: ");
-  Serial.println(controllerData.Right);
-  Serial.print("Down: ");
-  Serial.println(controllerData.Left);
+  Serial.print("LX: ");
+  Serial.println(controllerData.LX);
+  Serial.print("LY: ");
+  Serial.println(controllerData.LY);
+  Serial.print("RX: ");
+  Serial.println(controllerData.RX);
+  Serial.print("RY: ");
+  Serial.println(controllerData.RY);
+  Serial.print("UP: ");
+  Serial.println(controllerData.UP);
+  Serial.print("DOWN: ");
+  Serial.println(controllerData.DOWN);
+  Serial.print("RIGHT: ");
+  Serial.println(controllerData.RIGHT);
+  Serial.print("LEFT: ");
+  Serial.println(controllerData.LEFT);
 }
 
 void setup() {
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
-  Serial.print("MAC: ");
+
+  Serial.print("MAC Receiver: ");
   Serial.println(WiFi.macAddress());
+
   if(esp_now_init() != ESP_OK) {
     Serial.println("Error initializing ESP-NOW");
     return;
   }
-  esp_now_init();
   esp_now_register_recv_cb(OnDataRecv);
 }
+
 
 void loop() {
   delay(1000);

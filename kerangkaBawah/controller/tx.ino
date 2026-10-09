@@ -14,13 +14,12 @@ PS2X ps2x;
 
 int error = -1;
 byte type = 0;
-byte vibrate = 0;
 int tryNum = 1;
 
 uint8_t broadcastAddress[] = {0x68, 0xEE, 0x8F, 0x4F, 0x04, 0x1C};
 struct struct_message {
   int LX, LY, RX, RY;
-  bool Up, Down, Right, Left;
+  bool UP, DOWN, RIGHT, LEFT;
 } controllerData;
 
 esp_now_peer_info_t peerInfo; 
@@ -38,22 +37,6 @@ void setup(){
     Serial.println(tryNum);
     tryNum ++;
   }
-  Serial.println(ps2x.Analog(1), HEX);
-  type = ps2x.readType();
-  switch(type) {
-    case 0:
-      Serial.println(" Unknown Controller type found ");
-      break;
-    case 1:
-      Serial.println(" DualShock Controller found ");
-      break;
-    case 2:
-      Serial.println(" GuitarHero Controller found ");
-      break;
-	  case 3:
-      Serial.println(" Wireless Sony DualShock Controller found ");
-      break;
-   }
 
   WiFi.mode(WIFI_STA);
   if(esp_now_init() != ESP_OK) {
@@ -63,7 +46,8 @@ void setup(){
   esp_now_register_send_cb((esp_now_send_cb_t) OnDataSent);
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.channel = 0;
-  peerInfo.encRYpt = false;
+  peerInfo.encrypt = false;
+
   if(esp_now_add_peer(&peerInfo) != ESP_OK) {
     Serial.println("Failed to add peer");
     return;   
@@ -72,12 +56,13 @@ void setup(){
 
 void loop() {
   if (error != 0) {
-    Serial.println("PS not connection");
+    Serial.println("PS not connected");
     delay(1000);
     return;
   }
 
   ps2x.read_gamepad(false, 0); 
+
   if(ps2x.Button(PSB_L1) || ps2x.Button(PSB_R1)) {
   controllerData.LX = ps2x.Analog(PSS_LX);
   controllerData.LY = ps2x.Analog(PSS_LY);
@@ -88,6 +73,10 @@ void loop() {
   controllerData.RIGHT = ps2x.Button(PSB_PAD_RIGHT);
   controllerData.LEFT = ps2x.Button(PSB_PAD_LEFT);
 
-  esp_now_send(broadcastAddress, (uint8_t *) &controllerData, sizeof(controllerData));
+  if (memcmp(&controllerData, &lastControllerData, sizeof(controllerData)) != 0) {
+    esp_now_send(broadcastAddress, (uint8_t *) &controllerData, sizeof(controllerData));
+    memcpy(&lastControllerData, &controllerData, sizeof(controllerData));
+  }
+
   delay(50);
-}
+}}
