@@ -1,5 +1,10 @@
 #include <WiFi.h>
 #include <esp_now.h>
+#include "SerialTransfer.h"
+
+SerialTransfer myTransfer;
+
+
 
 typedef struct __attribute__((packed)) {
   uint8_t ly;
@@ -68,5 +73,10 @@ void setup() {
   Serial.println("RX siap!");
 }
 
-void loop() {
+void loop()
+{
+  uint16_t sendSize = 0;
+  sendSize = myTransfer.txObj(joystick, sendSize);
+  myTransfer.sendData(sendSize);
+  delay(100);
 }
