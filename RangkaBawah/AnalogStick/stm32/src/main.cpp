@@ -11,6 +11,7 @@ void setup()
   Serial.begin(115200);
   Serial1.begin(115200);
   myTransfer.begin(Serial1);
+  pinMode(PC13,OUTPUT);
   pinMode(pwm_1, OUTPUT);
   pinMode(pwm_2, OUTPUT);
   pinMode(pwm_3, OUTPUT);
@@ -30,6 +31,7 @@ void loop()
   if (myTransfer.available())
   {
     uint16_t recSize = 0;
+    Serial.println(receivedData.LX);
 
     recSize = myTransfer.rxObj(receivedData, recSize);
     int VxL = deadzone(mapJoystick(receivedData.LX));
@@ -54,10 +56,11 @@ void loop()
         Vy = SPEED * sin(theta);
       }
 
-      float W1 = inverseKinematik(Vx, Vy, Rnorm, 45);
-      float W2 = inverseKinematik(Vx, Vy, Rnorm, 135);
-      float W3 = inverseKinematik(Vx, Vy, Rnorm, 225);
-      float W4 = inverseKinematik(Vx, Vy, Rnorm, 315);
+      float W1 = inverseKinematik(Vx, Vy, Rnorm, 46.5515556);
+      float W2 = inverseKinematik(Vx, Vy, Rnorm, 135.77075);
+      float W3 = inverseKinematik(Vx, Vy, Rnorm, 226.83074);
+      float W4 = inverseKinematik(Vx, Vy, Rnorm, 316.50383);
+    
       move(W1, W2, W3, W4);
     }
   }

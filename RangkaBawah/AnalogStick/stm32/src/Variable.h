@@ -1,15 +1,15 @@
 #pragma once
 #include "SerialTransfer.h"
 
-#define pwm_1 PB6
-#define pwm_2 PB7
-#define pwm_3 PB8
-#define pwm_4 PB9
+#define pwm_1 PB9
+#define pwm_2 PB8
+#define pwm_3 PB7
+#define pwm_4 PB6
 
-#define mux_1 PA2
-#define mux_2 PA3
-#define mux_3 PA4
-#define mux_4 PA5
+#define mux_1 PA5
+#define mux_2 PA2
+#define mux_3 PA3
+#define mux_4 PA4
 
 #define SPEED 2048
 
