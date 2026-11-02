@@ -8,7 +8,7 @@ struct __attribute__((packed)) struct_message {
   float Lx;
   float Ly;
   float Rx;
-  float Ry;
+  float Ry; 
   bool Up;
   bool Right;
   bool Left;

@@ -3,14 +3,32 @@
 #include "InvKin.h"
 #include "RunRobot.h"
 
-#define _pwm1 PB8 //1 kanan depan
-#define _sel1 PA2
-#define _pwm2 PB7 //2 kiri depan
-#define _sel2 PA3
-#define _pwm3 PB6 //3 kiri belakang
-#define _sel3 PA4
-#define _pwm4 PB9 //4 kanan belakang
+// #define _pwm1 PB8 //1 kanan depan
+// #define _sel1 PA2
+// #define _pwm2 PB7 //2 kiri depan
+// #define _sel2 PA3
+// #define _pwm3 PB6 //3 kiri belakang
+// #define _sel3 PA4
+// #define _pwm4 PB9 //4 kanan belakang
+// #define _sel4 PA5
+
+// #define _pwm1 PB9 //1 kanan depan
+// #define _sel1 PA5
+// #define _pwm2 PB8 //2 kiri depan
+// #define _sel2 PA2
+// #define _pwm3 PB7 //3 kiri belakang
+// #define _sel3 PA3
+// #define _pwm4 PB6 //4 kanan belakang
+// #define _sel4 PA4
+
+#define _pwm4 PB9 //1 kanan depan
 #define _sel4 PA5
+#define _pwm1 PB8 //2 kiri depan
+#define _sel1 PA2
+#define _pwm2 PB7 //3 kiri belakang
+#define _sel2 PA3
+#define _pwm3 PB6 //4 kanan belakang
+#define _sel3 PA4
 
 SerialTransfer myTransfer;
 
